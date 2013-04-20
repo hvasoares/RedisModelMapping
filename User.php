@@ -10,7 +10,7 @@ class User{
 	}
 
 	public function sexualOrientation($val=null){
-		return isnull($vall) ? $this->sexualOrientation : $this->sexualOrientation = $val;
+		return is_null($vall) ? $this->sexualOrientation : $this->sexualOrientation = $val;
 	}
 }
 ?>
