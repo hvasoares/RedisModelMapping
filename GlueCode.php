@@ -5,10 +5,17 @@ require_once 'ZsetPushOperation.php';
 require_once 'RedisOrderedSet.php';
 require_once 'RedisZsetHelper.php';
 require_once 'ZsetPushOperation.php';
+require_once 'WeakEntityListener.php';
+require_once 'ListenerChain.php';
+require_once 'GlueCodeRepository.php';
 use switch5\commom\Registry;
 class GlueCode{
 	public function getRegistry($top=null){
 		$r = new Registry($top);
+
+		$r['listenerChain'] = function($r){
+			return new ListenerChain();
+		};
 
 		$r['OrderedSet'] = function($r){
 			return new RedisOrderedSet(
@@ -28,7 +35,10 @@ class GlueCode{
 			$r['Redis']
 		);
 
-		return $r;
+
+		$gcrepo = new GlueCodeRepository();
+
+		return $gcrepo->getRegistry($r);
 	}
 }
 ?>

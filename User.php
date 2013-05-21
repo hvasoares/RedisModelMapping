@@ -1,16 +1,22 @@
 <?
-namespace switch5php\domain;
+namespace switch5\domain;
 class User{
-	private $id;
-	private $sex;
-	private $sexualOrientation;
-
-	public function sex($val=null){
-		return is_null($val) ? $this->sex : $this->sex = $val; 
+	public function __construct(){
+		$this->created_time = time();
+		$this->modified_time = time();
 	}
-
-	public function sexualOrientation($val=null){
-		return is_null($vall) ? $this->sexualOrientation : $this->sexualOrientation = $val;
+	private $id;
+	private $created_time;
+	private $modified_time;
+	
+	public function id($val=null){
+		return is_null($val) ? $this->id : $this->id=$val;
+	}
+	public function created_time($val=null){
+		return is_null($val) ? $this->created_time : $this->created_time=$val;
+	}
+	public function modified_time($val=null){
+		return is_null($val) ? $this->modified_time : $this->modified_time=$val;
 	}
 }
 ?>

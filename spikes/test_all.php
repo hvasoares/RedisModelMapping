@@ -77,4 +77,21 @@ $model2Repository->save($model2);
 $orderSet[]=$model2;
 
 echo $orderSet[0]->id() == $model2->id();
+
+$uRepo = $r['userRepository'];
+
+$new_user = $uRepo->createNewModel();
+$uRepo->save($new_user);
+
+$sexualityRepo = $r['sexualityRepository'];
+$new_sex = $sexualityRepo->createNewModel();
+$new_sex->id($new_user->id());
+$new_sex->sex('man');
+$new_sex->interestedSex('woman');
+
+$sexualityRepo->save($new_sex);
+echo $new_sex->id();
+$new_sex = $sexualityRepo->find($new_sex->id());
+echo $new_sex->sex();
+echo $new_sex->interestedSex();
 ?>
