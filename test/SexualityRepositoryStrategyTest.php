@@ -32,7 +32,7 @@ class SexualityRepositoryStrategyTest extends \PHPUnit_Framework_Testcase{
 			->with($this->inst->getValidation())
 			->once();
 		$model->shouldReceive('incrKey')
-			->with('switch5\domain\Sexuality_key')
+			->with('switch5\domain\User_key')
 			->once();
 
 		$fn($model);
