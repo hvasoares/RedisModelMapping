@@ -15,7 +15,9 @@ class ZsetPushOperation{
 				$r->zrange($key,$last,$last)
 			);
 			$r->zadd($key,$last_rank+10,$id);
+			return $last_rank + 10;
 		}
+		return 1;
 	}
 	private function notCouldAddFirst($key,$id){
 		try{

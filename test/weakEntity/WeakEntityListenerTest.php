@@ -1,15 +1,15 @@
 <?php
-namespace switch5\domain;
-require 'WeakEntityListener.php';
+namespace switch5\domain\weakEntity;
+require 'weakEntity/WeakEntityListener.php';
 use \Mockery as m;
-class WeakEntityListenerTest extends \PHPUnit_Framework_Testcase{
+class BeforeSaveListenerTest extends \PHPUnit_Framework_Testcase{
 	public function testShouldThrowAnExceptionIfTheIdIsNull(){
 		$model= m::mock('model');
 		$model->shouldReceive('id')
 			->andReturn(null)
 			->once();
 
-		$ins = new WeakEntityListener('childClass','fatherClass');
+		$ins = new BeforeSaveListener('childClass','fatherClass');
 
 		try{
 			$ins->beforeSave($model);
@@ -30,7 +30,7 @@ class WeakEntityListenerTest extends \PHPUnit_Framework_Testcase{
 			->andReturn("nonNull")
 			->once();
 
-		$ins = new WeakEntityListener(
+		$ins = new BeforeSaveListener(
 			'childClass',
 			'fatherClass'
 		);
@@ -38,7 +38,17 @@ class WeakEntityListenerTest extends \PHPUnit_Framework_Testcase{
 			$ins->beforeSave($model),
 			$model
 		);
+		$this->assertTrue($ins->isSaving());
+
+		$this->assertEquals(
+			$ins->afterSave('model'),
+			'model'
+		);
+
+		$this->assertFalse($ins->isSaving());
+
 	}
+
 }
 ?>
 

@@ -30,7 +30,10 @@ class ZsetPushOperationTest extends \PHPUnit_Framework_Testcase{
 			->times(1);
 
 
-		$inst->operate($key,'aid');
+		$this->assertEquals(
+			$inst->operate($key,'aid'),
+			110
+		);
 	}
 
 	public function testShouldAddAValueAtFirstIfKeyDoesntExists(){
@@ -45,7 +48,7 @@ class ZsetPushOperationTest extends \PHPUnit_Framework_Testcase{
 			->with($key,1,'aid')
 			->times(1);
 
-		$inst->operate($key,'aid');
+		$this->assertEquals($inst->operate($key,'aid'),1);
 	}
 }
 ?>

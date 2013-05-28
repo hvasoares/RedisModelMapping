@@ -1,6 +1,6 @@
 <?php
 namespace switch5\domain;
-require_once 'libs/commons/Registry.php';
+require_once __DIR__.'/../commom/Registry.php';
 require_once 'SexualityRepositoryStrategy.php';
 require_once 'UserRepositoryStrategy.php';
 require_once 'ExtendedRepository.php';
@@ -10,14 +10,26 @@ class GlueCodeRepository{
 		$r = new Registry($top);
 
 		$r['sexualityRepository'] = function($r){
+/*			$wkl = new WeakEntityListener(
+				'Sexuality',
+				'User'
+			);
+			$wers =	new WeakEntityRepositoryStrategy(
+				new SexualityRepositoryStrategy(),
+				$wkl
+			);
 			$result = new ExtendedRepository(
 				$r['Repository'],
-				new SexualityRepositoryStrategy(),
-				new WeakEntityListener(
-					'Sexuality',
-					'User'
-				)
-			);
+				$wers,	
+				$wkl
+			);*/
+			$hashedBuilder = $r['hashedIdBuilder'];
+			$repoBuilder = $r['repositoryBuilder'];
+			$result = $hashedBuilder->baseProperty(
+				'sex','interestedSex'
+			)->get($repoBuilder->strategy(
+				new SexualityRepositoryStrategy())
+			)->get();
 			$r['sexualityRepository']=$result;
 			return $result;
 		};
@@ -31,6 +43,28 @@ class GlueCodeRepository{
 			return $result;
 
 		};
+		$r['localizationRepository']=function($r){
+			$lc=$r['listenerChain'];
+			$result = new ExtendedRepository(
+				$r['Repository'],
+				new LocalizationRepositoryStrategy(),
+				$lc
+			);
+
+			$rls1 = $r['unidirectionalRelationship'];
+			$rls1->setRelationshipAttribute('top_location');
+			$rls1->setRepository($result);
+
+			$rls2 = $r['unidirectionalRelationship'];
+			$rls2->setRelationshipAttribute('first_user');
+			$rls2->setRepository($r['userRepository']);
+
+			$lc->add($rls2);
+			$ls->add($rls1);
+			$r['localizationRepository']=$result;
+			return $restult;
+		};
+
 
 		return $r;
 	}

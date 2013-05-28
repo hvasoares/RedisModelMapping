@@ -1,6 +1,6 @@
 <?php
 namespace switch5\domain;
-require 'libs/modelmapping/GlueCode.php';
+require_once '../modelmapping/GlueCode.php';
 use switch5\modelmapping as mm;
 use switch5\commom\Registry;
 require 'GlueCode.php';
@@ -10,7 +10,7 @@ $topr = new Registry();
 $topr['Redis'] = new \redis();
 $topr['Redis']->connect('127.0.0.1');
 $mmregistry = $mmgc->getRegistry($topr);
-
+$topr['sha1_salt']='mmmmmm';
 $gc= new GlueCode();
 $r = $gc->getRegistry($mmregistry);
 
@@ -85,12 +85,12 @@ $uRepo->save($new_user);
 
 $sexualityRepo = $r['sexualityRepository'];
 $new_sex = $sexualityRepo->createNewModel();
-$new_sex->id($new_user->id());
-$new_sex->sex('man');
+
+$new_sex->sex('woman');
 $new_sex->interestedSex('woman');
 
 $sexualityRepo->save($new_sex);
-echo $new_sex->id();
+echo "id=". $new_sex->id() . "\n";
 $new_sex = $sexualityRepo->find($new_sex->id());
 echo $new_sex->sex();
 echo $new_sex->interestedSex();

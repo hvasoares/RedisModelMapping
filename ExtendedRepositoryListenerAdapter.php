@@ -14,7 +14,7 @@ abstract class ExtendedRepositoryListenerAdapter{
 	}
 
 	public function afterSave($model){
-		
+		return $model;		
 	}
 
 	public function deleteListener($model){
