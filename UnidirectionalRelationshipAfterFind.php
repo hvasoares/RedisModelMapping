@@ -1,6 +1,8 @@
 <?php
 namespace switch5\domain;
 require_once 'ExtendedRepositoryListenerAdapter.php';
+require_once 'validations.php';
+use switch5\validations\ValidationException;
 class UnidirectionalRelationshipAfterFind
 	extends ExtendedRepositoryListenerAdapter{
 	private $attr;
@@ -22,7 +24,12 @@ class UnidirectionalRelationshipAfterFind
 		$rf = new \ReflectionObject($model);
 		$p= $rf->getProperty($this->attr);
 		$p->setAccessible(true);
-		$p->setValue($model,$ordered[0]);
+		try{
+			$p->setValue($model,$ordered[0]);
+		}catch(ValidationException $ex){
+			//model doesn't has relationship
+			return $model;
+		}
 		return $model;
 	}	
 }

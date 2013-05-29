@@ -10,12 +10,13 @@ class ZsetPushOperation{
 		if($this->notCouldAddFirst($key,$id)){
 			$r = $this->r;
 			$last=$r->zcard($key)-1;
-			$last_rank =$r->zrank(
+			$zrange =$r->zrange($key,$last,$last);
+			$last_rank =$r->zscore(
 				$key,
-				$r->zrange($key,$last,$last)
+				$zrange[0]
 			);
-			$r->zadd($key,$last_rank+10,$id);
-			return $last_rank + 10;
+			$r->zadd($key,$last_rank+1,$id);
+			return $last_rank + 1;
 		}
 		return 1;
 	}

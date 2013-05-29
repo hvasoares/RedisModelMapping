@@ -17,21 +17,22 @@ class GeneratorTest extends \PHPUnit_Framework_Testcase{
 		$mapper = m::mock("mapper");
 		$zsetPush= m::mock('zsetPush');
 		$zsetExists= m::mock('zsetExists');
+
+		$m1 = new domain\MockModelTest1();
+		$modelName = get_class($m1);
+		$hashedzset = $modelName."_hashed_generator";
+
 		$r = array(
 			'Redis' => $redisM,
 			'ZsetPush' => $zsetPush,
 			'ZsetExists' => $zsetExists,
 			'Mapper'=>$mapper,
-			'sha1_salt' => 'salt'
+			'attrs' => $attrs,
+			'sha1_salt' => 'salt',
+			'zsetkey'=>$hashedzset
 		);
 		$inst = new Generator($r);
 
-		$m1 = new domain\MockModelTest1();
-		$modelName = get_class($m1);
-		call_user_func_array(
-			array($inst,'setBaseProperty'),
-			$attrs
-		);
 		$modelArray =array(
 			'id' => 'a_id',
 			'attr1' => 'some_value',
@@ -42,7 +43,7 @@ class GeneratorTest extends \PHPUnit_Framework_Testcase{
 			->andReturn($modelArray)
 			->once();
 
-		$hashedzset = $modelName."_hashed_generator";
+
 		$result='';
 		foreach($attrs as $attr)
 			$result .= $modelArray[$attr];

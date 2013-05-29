@@ -32,7 +32,9 @@ class RepositoryStrategyTest extends \PHPUnit_Framework_Testcase{
 		$fn=$inst->getSchemaClosure();
 	
 		$fn($model);
+		$this->assertEquals($r['zsetkey'],'a_key_hashed_generator');
 		$this->assertEquals($r['modelKey'],'a_key');
+
 	}
 }
 ?>

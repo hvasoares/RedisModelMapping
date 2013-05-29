@@ -7,30 +7,28 @@ class Generator	extends domain\ExtendedRepositoryListenerAdapter
 	public function __construct(&$registry){
 		$this->r = &$registry;
 	}
-	public function setBaseProperty(){
-		$this->attr = func_get_args();
-	}
 	public function beforeSave($model){
-		$m = $this->r['Mapper'];
-		$redis = $this->r['Redis'];
-		$zsetPush = $this->r['ZsetPush'];
-		$zsetExists= $this->r['ZsetExists'];
+		$r = $this->r;
+		$m = $r['Mapper'];
+		$redis = $r['Redis'];
+		$zsetPush = $r['ZsetPush'];
+		$zsetExists= $r['ZsetExists'];
 
 		$modelName = get_class($model);
-		$zsetname = $modelName."_hashed_generator";
-		$type =$redis->type($zsetname);
+		$type =$redis->type($r['zsetkey']);
 		if(!$type || $type==4){
 			$array = $m->getArray($model);
 			$hash=sha1($this->concatAttrs($array)
 				.$this->r['sha1_salt']
 			);
 			$array['id'] =	$zsetExists->operate(
-				$zsetname,
+				$r['zsetkey'],
 				$hash
 			);
+
 			if(!$array['id'])
 				$array['id'] = $zsetPush->operate(
-					$zsetname,
+					$r['zsetkey'],
 					$hash
 				);
 			$m->arrayToModel($model,$array);
@@ -40,7 +38,7 @@ class Generator	extends domain\ExtendedRepositoryListenerAdapter
 	}
 	public function concatAttrs($array){
 		$result='';
-		foreach($this->attr as $attr)
+		foreach($this->r['attrs'] as $attr)
 			$result.=$array[$attr];
 		return $result;
 	}

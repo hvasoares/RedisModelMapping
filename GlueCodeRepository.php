@@ -3,6 +3,7 @@ namespace switch5\domain;
 require_once __DIR__.'/../commom/Registry.php';
 require_once 'SexualityRepositoryStrategy.php';
 require_once 'UserRepositoryStrategy.php';
+require_once 'LocalizationRepositoryStrategy.php';
 require_once 'ExtendedRepository.php';
 use switch5\commom\Registry;
 class GlueCodeRepository{
@@ -44,25 +45,32 @@ class GlueCodeRepository{
 
 		};
 		$r['localizationRepository']=function($r){
+
 			$lc=$r['listenerChain'];
-			$result = new ExtendedRepository(
-				$r['Repository'],
-				new LocalizationRepositoryStrategy(),
-				$lc
-			);
+			$hashedId = $r['hashedIdBuilder'];
+
 
 			$rls1 = $r['unidirectionalRelationship'];
-			$rls1->setRelationshipAttribute('top_location');
-			$rls1->setRepository($result);
-
 			$rls2 = $r['unidirectionalRelationship'];
-			$rls2->setRelationshipAttribute('first_user');
+			
+			$r['localizationRepository']=$rls2->setRelationshipAttribute('first_user')
+				->get(
+					$rls1->setRelationshipAttribute('top_location')
+						->get( $hashedId->baseProperty('name','top_location_id')
+							->get($r['repositoryBuilder']
+								->addListener($lc)
+							->strategy(new LocalizationRepositoryStrategy())
+						)
+					)
+				)->get();
+
+			$rls1->setRepository($r['localizationRepository']);
+
 			$rls2->setRepository($r['userRepository']);
 
-			$lc->add($rls2);
-			$ls->add($rls1);
-			$r['localizationRepository']=$result;
-			return $restult;
+
+
+			return	$r['localizationRepository'];
 		};
 
 

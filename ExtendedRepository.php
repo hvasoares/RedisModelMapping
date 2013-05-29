@@ -31,6 +31,9 @@ class ExtendedRepository{
 	public function delete($model){
 		$this->listener->deleteListener($model);
 	}
+	public function getClassName(){
+		return get_class($this->createNewModel());
+	}
 }
 
 ?>

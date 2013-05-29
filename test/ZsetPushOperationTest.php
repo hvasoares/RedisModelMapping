@@ -19,20 +19,20 @@ class ZsetPushOperationTest extends \PHPUnit_Framework_Testcase{
 			->times(1);
 		$redis->shouldReceive('zrange')
 			->with($key,5,5)
-			->andReturn("a_id")
+			->andReturn(array('a_id'))
 			->times(1);
-		$redis->shouldReceive('zrank')
+		$redis->shouldReceive('zscore')
 			->with($key,"a_id")
 			->andReturn(100)
 			->times(1);
 		$redis->shouldReceive('zadd')
-			->with($key,110,'aid')
+			->with($key,101,'aid')
 			->times(1);
 
 
 		$this->assertEquals(
 			$inst->operate($key,'aid'),
-			110
+			101
 		);
 	}
 

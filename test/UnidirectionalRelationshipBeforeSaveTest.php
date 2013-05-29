@@ -3,7 +3,7 @@ namespace switch5\domain;
 use \Mockery as m;
 require_once 'UnidirectionalRelationshipBeforeSave.php';
 require_once 'test/MockModelTest.php';
-class UnidirectionalRelationshipTest
+class UnidirectionalRelationshipBeforeSaveTest
 	extends \PHPUnit_Framework_Testcase{
 	public function setUp(){
 	}
@@ -12,7 +12,7 @@ class UnidirectionalRelationshipTest
 		$m = m::mock('mapper');
 		$o = m::mock("stdClass,\ArrayAccess");
 		$r = array(
-			'mapper' => $m,
+			'Mapper' => $m,
 			'OrderedSet' => $o
 		);
 

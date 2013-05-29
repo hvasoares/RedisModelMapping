@@ -1,6 +1,6 @@
 <?
 namespace switch5\validations;
-require_once 'libs/validations/validations.php';
+require_once __DIR__.'/../validations/validations.php';
 function mustBeAModel($object){
 	try{
 		notNull($object);

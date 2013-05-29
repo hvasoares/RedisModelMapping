@@ -24,7 +24,9 @@ class RepositoryStrategy extends
 	}
 
 	public function setIncrKey(){
-		$this->r['modelKey']=$this->schemaL->getIncrKey();
+		$key=$this->schemaL->getIncrKey();
+		$this->r['modelKey'] =$key;
+		$this->r['zsetkey']= $key.'_hashed_generator';
 	}
 }	
 ?>

@@ -13,7 +13,7 @@ class ZsetExistsOperationStrategyTest extends \PHPUnit_Framework_Testcase{
 	public function testOperate(){
 		$r = m::mock('redism');
 		$inst = new ZsetExistsOperationStrategy($r);
-		$r->shouldReceive('zrank')
+		$r->shouldReceive('zscore')
 			->with('key','id')
 			->andReturn(true)
 			->times(1);

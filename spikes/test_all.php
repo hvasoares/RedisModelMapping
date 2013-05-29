@@ -94,4 +94,7 @@ echo "id=". $new_sex->id() . "\n";
 $new_sex = $sexualityRepo->find($new_sex->id());
 echo $new_sex->sex();
 echo $new_sex->interestedSex();
+
+$localRepo = $r['localizationRepository'];
+
 ?>

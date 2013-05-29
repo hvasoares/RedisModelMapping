@@ -19,16 +19,25 @@ class UnidirectionalRelationshipBeforeSave
 			throw new Exception("Not implemented yet forcardinality more than 1");
 	}
 	public function beforeSave($model){
-		$m=$this->r['mapper'];
+		$c=0;
+		$m=$this->r['Mapper'];
 		$o=$this->r['OrderedSet'];
-		$o->setRepository($this->repository);
+
 		$o->setReferencedModel($model);
+		$o->setRepository($this->repository);
+
 		$attrs = $m->getArray($model);
 		$rm = $attrs[$this->attr];
+		if(!$rm)
+			return $model;
+		
 		$om =$this->repository->find($rm->id());
 		if($om){
-			unset($o[0]);
-			$o[]=$om;
+			if($o[0]!=null
+				&& $o[0]->id()!=$om->id()){
+				unset($o[0]);
+				$o[]=$om;
+			}
 			return $model;
 		}
 	}

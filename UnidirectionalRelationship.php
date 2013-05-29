@@ -14,17 +14,18 @@ class UnidirectionalRelationship{
 	public function setRepository($v){
 		$this->uniBS->setRepository($v);
 		$this->uniAF->setRepository($v);		
+		return $this;
 	}
 	public function setRelationshipAttribute($v){
 		$this->uniBS->setRelationshipAttribute($v);
 		$this->uniAF->setRelationshipAttribute($v);	
+		return $this;
 	}
 
-	public function get(){
-		$lc = $this->r['listenerChain'];	
-		$lc->add($this->uniAF);
-		$lc->add($this->uniBS);
-		return $lc;
+	public function get($repoBuilder){
+		$repoBuilder->addListener($this->uniAF);
+		$repoBuilder->addListener($this->uniBS);
+		return $repoBuilder;
 	}
 }
 ?>

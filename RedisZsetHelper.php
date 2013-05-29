@@ -19,6 +19,8 @@ class RedisZsetHelper{
 		$this->valid();
 		v\firstGreaterThanSecond($this->r->zcard($this->k),v\isInteger($n));
 		$zrange = $this->r->zrange($this->k,$n,$n);
+		if(sizeof($zrange)==0)
+			return null;
 		return $this->rp->find($zrange[0]);
 	
 	}

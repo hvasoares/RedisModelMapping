@@ -8,7 +8,8 @@ class ZsetExistsOperationStrategy{
 		return false;
 	}
 	public function operate($key,$arg){
-		return $this->r->zrank($key,$arg);
+		$r= $this->r->zscore($key,$arg)||false;
+		return $r;
 	}
 }
 ?>
