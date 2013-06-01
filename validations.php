@@ -2,15 +2,16 @@
 namespace switch5\validations;
 require_once __DIR__.'/../validations/validations.php';
 function mustBeAModel($object){
-	try{
+	//try{
 		notNull($object);
 		mustHaveMethod($object,'id');
 		methodMustHaveNoArgs($object,'id');
 		mustBeAScalar($object->id());
 		return $object;
-	}catch(ValidationException $ex){
-		throw new ValidationException("Not a model object, see previous errors", $ex);
-	}
+/*	}catch(ValidationException $ex){
+		throw new ValidationException("Not a model object, see previous errors. Line ".$ex->getLine().' '.$ex->getFile()
+			, $ex);
+	}*/
 }
 
 function redisKeyZset($r,$k){

@@ -1,6 +1,6 @@
 <?php
-namespace switch5\domain;
-class UnidirectionalRelationship{
+namespace switch5\domain\relationship;
+class Builder{
 	public function __construct($r){
 		$this->r=$r;
 		$this->uniBS=$r[
@@ -9,6 +9,11 @@ class UnidirectionalRelationship{
 		$this->uniAF=$r[
 			'unidirectionalRelationshipAfterFind'
 		];
+
+	}
+	public function setOneToOne($v){
+		$this->uniBS->setOneToOne($v);
+		$this->uniAF->setOneToOne($v);		
 
 	}
 	public function setRepository($v){

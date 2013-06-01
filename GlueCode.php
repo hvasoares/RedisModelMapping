@@ -8,16 +8,26 @@ require_once 'ZsetPushOperation.php';
 require_once 'ZsetExistsOperationStrategy.php';
 require_once 'ListenerChain.php';
 require_once 'GlueCodeRepository.php';
-require_once 'UnidirectionalRelationship.php';
-require_once 'UnidirectionalRelationshipBeforeSave.php';
-require_once 'UnidirectionalRelationshipAfterFind.php';
+require_once 'relationship/Builder.php';
+require_once 'relationship/BeforeSave.php';
+require_once 'relationship/AfterFind.php';
 require_once 'weakEntity/Builder.php';
 require_once 'hashedId/Builder.php';
 require_once 'RepositoryBuilder.php';
+require_once 'AnnotationDriverDoctrine.php';
+require_once 'GenericRepositoryStrategy.php';
+require_once 'AnnotatedPropertyConsulter.php';
+require_once 'AnnotatedRepositoryBuilder.php';
+require_once 'AutomatedRepositoryCreator.php';
+require_once 'AnnotationsModelValidator.php';
+require_once 'DomainListener.php';
+require_once 'Transient.php';
 use switch5\commom\Registry;
 class GlueCode{
 	public function getRegistry($top=null){
 		$r = new Registry($top);
+
+		$r['domainListener'] = new DomainListener($r);
 
 		$r['listenerChain'] = function($r){
 			return new ListenerChain();
@@ -37,8 +47,13 @@ class GlueCode{
 			return new hashedId\Builder($r);
 		};
 
+
+		$r['annotationValidator'] = new AnnotationsModelValidator();
+
 		$r['repositoryBuilder'] = function($r){
-			return new RepositoryBuilder($r);
+			$result = new RepositoryBuilder($r);
+			$result->addListener($r['annotationValidator']);
+			return $result;
 		};
 
 		$r['ZsetHelper'] = function($r){
@@ -66,18 +81,35 @@ class GlueCode{
 
 
 		$r['unidirectionalRelationshipBeforeSave']=function($r){
-			return new UnidirectionalRelationshipBeforeSave($r);
+			return new relationship\BeforeSave($r);
 		};
 
 		$r['unidirectionalRelationshipAfterFind']=function($r){
-			return new UnidirectionalRelationshipAfterFind($r);
+			return new relationship\AfterFind($r);
 		};
 
-		$r['unidirectionalRelationship']=function($r){
-			return new UnidirectionalRelationship($r);
+		$r['relationshipBuilder']=function($r){
+			return new relationship\Builder($r);
 		};
 
 
+		$r['annotationDriver'] = new AnnotationDriverDoctrine();
+		$r['repositoryCreator'] = new AutomatedRepositoryCreator($r);
+		$r['annotatedRepositoryBuilder'] = new AnnotatedRepositoryBuilder($r);
+		$r['annotatedPropertyConsulter'] = new AnnotatedPropertyConsulter();
+		$r['annotatedPropertyConsulter']->setAnnotationDriver($r['annotationDriver']);
+		$r['genericRepositoryStrategy'] = function($r){
+			return new GenericRepositoryStrategy($r);
+		};
+
+		$annotations = array(
+			'hashedId/HashedId.php',
+			'relationship/Relationship.php',
+			'Transient.php'
+		);
+		foreach($annotations as $a){
+			$r['annotationDriver']->registerAnnotationFile(__DIR__."/$a");
+		}
 
 		$gcrepo = new GlueCodeRepository();
 

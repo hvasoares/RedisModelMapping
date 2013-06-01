@@ -1,20 +1,18 @@
 <?php
-namespace switch5\domain;
-require_once 'UnidirectionalRelationship.php';
+namespace switch5\domain\relationship;
+require_once 'relationship/Builder.php';
 use \Mockery as m;
-class UnidirectionalRelationshipTest
+class BuilderTest
 	extends \PHPUnit_Framework_Testcase{
 	public function testShouldPassArgumentsToTheListeners(){
 		$urbf = m::mock('urbf');
 		$uraf = m::mock('uraf');
-		$lc = m::mock('lc');
 		$r = array(
 			'unidirectionalRelationshipBeforeSave' => $urbf,
-			'unidirectionalRelationshipAfterFind' => $uraf,
+			'unidirectionalRelationshipAfterFind' => $uraf
 
-			'listenerChain' => $lc
 		);
-		$inst = new UnidirectionalRelationship($r);
+		$inst = new Builder($r);
 
 		$urbf->shouldReceive('setRepository')
 			->with('aRepo')
@@ -33,17 +31,26 @@ class UnidirectionalRelationshipTest
 		$inst->setRelationshipAttribute('attr');
 
 
-		$lc->shouldReceive('add')
+		$urbf->shouldReceive('setOneToOne')
+			->with('attr')
+			->once();
+		$uraf->shouldReceive('setOneToOne')
+			->with('attr')
+			->once();
+		$inst->setOneToOne('attr');
+
+
+		$repoBuilder = m::mock('repoBuilder');
+		$repoBuilder->shouldReceive('addListener')
 			->with($uraf)
 			->once();
-		$lc->shouldReceive('add')
+		$repoBuilder->shouldReceive('addListener')
 			->with($urbf)
 			->once();
 
-
 		$this->assertEquals(
-			$inst->get(),
-			$lc
+			$inst->get($repoBuilder),
+			$repoBuilder
 		);
 
 	}

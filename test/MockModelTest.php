@@ -2,6 +2,7 @@
 namespace switch5\domain;
 class MockModelTest1{
 	private $attr1;
+	private $attr2;
 	public function id(){
 		return 'mockModelTest1Id';
 	}

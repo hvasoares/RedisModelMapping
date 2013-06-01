@@ -1,15 +1,19 @@
 <?php
-namespace switch5\domain;
-require_once 'ExtendedRepositoryListenerAdapter.php';
-require_once 'validations.php';
+namespace switch5\domain\relationship;
+require_once __DIR__.'/../ExtendedRepositoryListenerAdapter.php';
+require_once __DIR__.'/../validations.php';
 use switch5\validations\ValidationException;
-class UnidirectionalRelationshipAfterFind
-	extends ExtendedRepositoryListenerAdapter{
+class AfterFind
+	extends \switch5\domain\ExtendedRepositoryListenerAdapter{
 	private $attr;
 	public function __construct($registry){
 		$this->r = $registry;
+		$this->card1 = true;
 	}
 
+	public function setOneToOne($v){
+		$this->card1=$v;
+	}
 	public function setRepository($v){
 		$this->repo = $v;	
 	}
@@ -19,13 +23,13 @@ class UnidirectionalRelationshipAfterFind
 	public function afterFind($model){
 		$ordered = $this->r['OrderedSet'];
 		$ordered->setReferencedModel($model);
-		$ordered->setRepository($this->repo);
+		$ordered->setRepository($this->r[$this->repo]);
 		
 		$rf = new \ReflectionObject($model);
 		$p= $rf->getProperty($this->attr);
 		$p->setAccessible(true);
 		try{
-			$p->setValue($model,$ordered[0]);
+			$p->setValue($model,$this->card1? $ordered[0] : $ordered);
 		}catch(ValidationException $ex){
 			//model doesn't has relationship
 			return $model;
