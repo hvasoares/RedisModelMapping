@@ -8,7 +8,7 @@ class RedisOrderedSet implements OrderedSet{
 		$this->h = v\notNull($zSetHelper);
 	}
 	public function setReferencedModel($model){
-		$this->model = 	v\mustBeAModel($model);
+		$this->model = 	$model;
 	}
 	public function setRepository($val){
 		$this->toModelClass = $val->getClassName();

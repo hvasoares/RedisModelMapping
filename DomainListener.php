@@ -7,7 +7,7 @@ class DomainListener implements ExtendedRepositoryListener{
 		$this->allListeners = array();
 	}
 	public function add($listener){
-		$modelName=$listener->getModelClass();
+		$modelName=get_class($listener->getModelClass());
 		if(!isset($this->allListeners[$modelName]))
 			$this->allListeners[$modelName] = 
 			$this->r['listenerChain'];
@@ -15,7 +15,6 @@ class DomainListener implements ExtendedRepositoryListener{
 		$this->allListeners[$modelName]->add($listener);
 	}
 	public function beforeFind($model){
-		return $this->genericMethod('beforeFind',$model);
 	}
 	public function beforeSave($model){
 		return $this->genericMethod('beforeSave',$model);

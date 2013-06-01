@@ -9,7 +9,7 @@ class UserIsReadyChecker
 		$this->r = $v;
 	}
 	public function getModelClass(){
-		return get_class(new User());
+		return new User();
 	}	
 	public function afterSave($model){
 		if(is_null($model->sexuality()))
@@ -21,7 +21,6 @@ class UserIsReadyChecker
 		$locGroup->sexuality($model->sexuality());
 		$locGroup->localization($model->localization());
 		$repo->save($locGroup);
-
 		$locGroup->addUser($model);
 		return $model;
 	}

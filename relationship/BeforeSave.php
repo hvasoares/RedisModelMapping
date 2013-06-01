@@ -19,6 +19,7 @@ class BeforeSave
 		$this->card1 = $v;
 	}
 	public function beforeSave($model){
+
 		if($this->card1){
 			$c=0;
 			$m=$this->r['Mapper'];
@@ -31,17 +32,16 @@ class BeforeSave
 			$rm = $attrs[$this->attr];
 			if(!$rm)
 				return $model;
-			
 			$om =$repo->find($rm->id());
 			if($om){
 				if($o[0]!=null
 					&& $o[0]->id()!=$om->id()){
 					unset($o[0]);
-					$o[]=$om;
 				}
-				return $model;
+				$o[]=$om;
 			}
 		}
+		return $model;
 	}
 }
 ?>

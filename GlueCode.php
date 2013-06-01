@@ -27,7 +27,9 @@ class GlueCode{
 	public function getRegistry($top=null){
 		$r = new Registry($top);
 
-		$r['domainListener'] = new DomainListener($r);
+		$r['domainListeners'] = new DomainListener($r);
+		$r['domainListener'] = $r['domainListeners']; 
+
 
 		$r['listenerChain'] = function($r){
 			return new ListenerChain();

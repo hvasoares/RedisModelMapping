@@ -36,5 +36,8 @@ class AfterFind
 		}
 		return $model;
 	}	
+	public function afterSave($model){
+		return $this->afterFind($model);
+	}
 }
 ?>

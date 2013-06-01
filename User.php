@@ -15,8 +15,8 @@ class User{
 	/** @Relationship(repository="localizationRepository") */
 	private $localization;
 	
-	public function id($val=null){
-		return is_null($val) ? $this->id : $this->id=$val;
+	public function id(){
+		return $this->id;
 	}
 	public function created_time($val=null){
 		return is_null($val) ? $this->created_time : $this->created_time=$val;
