@@ -1,6 +1,6 @@
 <phpunit bootstrap="./Bootstrap.php">
     <testsuite name="Starship Test Suite">
-	            <directory>test/</directory>
+	    <directory>src/test/</directory>
 		        </testsuite>
 			    <listeners>
 				            <listener class="\Mockery\Adapter\Phpunit\TestListener"

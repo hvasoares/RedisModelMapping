@@ -1,0 +1,32 @@
+{
+    "name": "hvasoares/redis-model-mapping",
+    "require": {
+	"hvasoares/commons": "1.0.4@dev"	,
+	"hvasoares/validations": "1.0.0",
+
+        "doctrine/common": "2.3.0",
+        "doctrine/annotations": "1.1.2",
+        "symfony/validator": "2.2.0"
+    },
+    "require-dev": {
+        "mockery/mockery": "0.8.0"
+    },
+    "authors": [
+        {
+            "name": "Hugo Vinícius Alves Soares",
+            "email": "hvasoares@gmail.com"
+        }
+    ],
+ "repositories":[
+	{
+			"type":"vcs",
+			"url" : "https://github.com/hvasoares/commons"
+		},
+		{
+			"type":"vcs",
+			"url" : "https://github.com/hvasoares/validations"
+		}
+
+    ]
+
+}
