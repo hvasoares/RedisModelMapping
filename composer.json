@@ -1,6 +1,7 @@
 {
     "name": "hvasoares/redis-model-mapping",
     "description" : "this module takes the responsability to map redis keys/values to phpobjects",
+    "license": "MIT",
     "require": {
 	"hvasoares/commons": "1.0.4@dev"	,
 	"hvasoares/validations": "1.0.0",
