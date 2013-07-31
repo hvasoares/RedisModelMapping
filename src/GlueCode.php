@@ -1,27 +1,5 @@
 <?php
 namespace hvasoares\RedisModelMapping;
-require_once __DIR__.'/../commom/Registry.php';
-require_once 'ZsetPushOperation.php';
-require_once 'RedisOrderedSet.php';
-require_once 'RedisZsetHelper.php';
-require_once 'ZsetPushOperation.php';
-require_once 'ZsetExistsOperationStrategy.php';
-require_once 'ListenerChain.php';
-require_once 'GlueCodeRepository.php';
-require_once 'relationship/Builder.php';
-require_once 'relationship/BeforeSave.php';
-require_once 'relationship/AfterFind.php';
-require_once 'weakEntity/Builder.php';
-require_once 'hashedId/Builder.php';
-require_once 'RepositoryBuilder.php';
-require_once 'AnnotationDriverDoctrine.php';
-require_once 'GenericRepositoryStrategy.php';
-require_once 'AnnotatedPropertyConsulter.php';
-require_once 'AnnotatedRepositoryBuilder.php';
-require_once 'AutomatedRepositoryCreator.php';
-require_once 'AnnotationsModelValidator.php';
-require_once 'DomainListener.php';
-require_once 'Transient.php';
 use hvasoares\commom\Registry;
 class GlueCode{
 	public function getRegistry($top=null){

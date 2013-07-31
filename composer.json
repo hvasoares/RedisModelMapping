@@ -4,7 +4,7 @@
     "require": {
 	"hvasoares/commons": "1.0.4@dev"	,
 	"hvasoares/validations": "1.0.0",
-
+	"hvasoares/array-redis-persistence":"1.0.2",
         "doctrine/common": "2.3.0",
         "doctrine/annotations": "1.1.2",
         "symfony/validator": "2.2.0"
@@ -20,17 +20,6 @@
     ],
 	    "autoload":{
 	    	"psr-0":{"hvasoares\\RedisModelMapping": "src/"}
-	    },
- "repositories":[
-	{
-			"type":"vcs",
-			"url" : "https://github.com/hvasoares/commons"
-		},
-		{
-			"type":"vcs",
-			"url" : "https://github.com/hvasoares/validations"
-		}
-
-    ]
+	    }
 
 }

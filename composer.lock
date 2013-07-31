@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "aace7242512bfca04a99916c1e0da0e9",
+    "hash": "0ecc21c212244adaec51fa183de0ee03",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -196,6 +196,38 @@
                 "parser"
             ],
             "time": "2013-01-12 18:59:04"
+        },
+        {
+            "name": "hvasoares/array-redis-persistence",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hvasoares/arrayredispersistence.git",
+                "reference": "1.0.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hvasoares/arrayredispersistence/zipball/1.0.2",
+                "reference": "1.0.2",
+                "shasum": ""
+            },
+            "require": {
+                "hvasoares/commons": "1.0.4",
+                "hvasoares/validations": "1.0.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.8.0",
+                "phpunit/phpunit": "3.7.1"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Hugo Vinícius Alves Soares",
+                    "email": "hvasoares@gmail.com"
+                }
+            ],
+            "time": "2013-07-27 03:37:24"
         },
         {
             "name": "hvasoares/commons",
