@@ -18,8 +18,8 @@
             "email": "hvasoares@gmail.com"
         }
     ],
-	    "autoload":{
-	    	"psr-0":{"hvasoares\\RedisModelMapping": "src/"}
-	    }
+    "autoload":{
+    	"psr-0":{"hvasoares\\RedisModelMapping": "src/"}
+   }
 
 }

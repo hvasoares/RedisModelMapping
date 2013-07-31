@@ -1,6 +1,7 @@
 <?php
 namespace hvasoares\RedisModelMapping;
 use hvasoares\commom\Registry;
+use hvasoares\arrayredispersistence;
 class GlueCode{
 	public function getRegistry($top=null){
 		$r = new Registry($top);
@@ -91,8 +92,7 @@ class GlueCode{
 			$r['annotationDriver']->registerAnnotationFile(__DIR__."/$a");
 		}
 
-		$gcrepo = new GlueCodeRepository();
-
+		$gcrepo = new arrayredispersistence\GlueCode();
 		return $gcrepo->getRegistry($r);
 	}
 }
