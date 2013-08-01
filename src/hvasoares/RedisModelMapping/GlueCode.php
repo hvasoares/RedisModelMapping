@@ -1,6 +1,6 @@
 <?php
 namespace hvasoares\RedisModelMapping;
-use hvasoares\commom\Registry;
+use hvasoares\commons\Registry;
 use hvasoares\arrayredispersistence;
 class GlueCode{
 	public function getRegistry($top=null){
