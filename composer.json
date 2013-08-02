@@ -8,7 +8,7 @@
 	"hvasoares/array-redis-persistence":"1.0.2",
         "doctrine/common": "2.3.0",
         "doctrine/annotations": "1.1.2",
-        "symfony/validator": "2.2.0"
+        "symfony/validator": ">=2.3.0"
     },
     "require-dev": {
         "mockery/mockery": "0.8.0"
