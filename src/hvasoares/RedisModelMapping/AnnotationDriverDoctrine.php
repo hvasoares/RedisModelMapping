@@ -11,6 +11,7 @@ class AnnotationDriverDoctrine implements AnnotationDriver{
 		);
 
 		$this->registry = new a\AnnotationRegistry();
+		$this->registry->registerNamespace("\\Symfony\\Component\\Validator\\Constraints");
 	}
 	public function getPropertyAnnotations($obj,$propertyName){
 			$obj =new ReflectionObject($obj);
