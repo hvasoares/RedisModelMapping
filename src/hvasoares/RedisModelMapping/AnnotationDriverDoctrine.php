@@ -11,8 +11,8 @@ class AnnotationDriverDoctrine implements AnnotationDriver{
 		);
 
 		a\AnnotationRegistry::registerLoader(function($class){
-			$full_dir = 
-				REDIS_MODEL_MAPPING_SYMFONY_VALIDATOR_DIR."/Symfony/Component/Validator/Constraints"
+			$full_dir = REDIS_MODEL_MAPPING_SYMFONY_VALIDATOR_DIR
+				."/Symfony/Component/Validator/Constraints";
 			if(strpos($class,"\Symfony\Component\Validator\Constraints")===0){
 				$part = explode("\\",$class);
 				$classname = array_pop($part);

@@ -5,8 +5,6 @@ require 'KeyUpdater.php';
 require 'Generator.php';
 require 'BeforeSaveIdTunning.php';
 require __DIR__.'/../ModelIncrKeyListener.php';
-if(!class_exists('\hvasoares\commom\Registry'))
-	require_once  __DIR__.'/../../commom/Registry.php';
 class Builder{
 	public function __construct($r){
 		$this->wkb = $r['weakEntityBuilder'];
