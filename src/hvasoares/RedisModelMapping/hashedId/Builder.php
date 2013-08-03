@@ -8,7 +8,7 @@ require __DIR__.'/../ModelIncrKeyListener.php';
 class Builder{
 	public function __construct($r){
 		$this->wkb = $r['weakEntityBuilder'];
-		$this->r = new \hvasoares\commom\Registry($r);
+		$this->r = new \hvasoares\commons\Registry($r);
 	}
 	public function baseProperty(){
 		$this->r['attrs'] = func_get_args();
