@@ -9,11 +9,20 @@ class GlueCode{
 		$r = new Registry($gcrepo->getRegistry($top));
 
 		$r['RedisModelMappingListeners'] = new DomainListener($r);
-		$r['RedisModelMappingListener'] = $r['RedisModelMappingListeners']; 
 
 
 		$r['listenerChain'] = function($r){
 			return new ListenerChain();
+		};
+
+		$r['RedisModelMappingListener'] = function ($r){
+			$result= new ListenerChain();
+			$result->add(new PHPLombokListener(
+				new hvasoares\phplombok\GlueCode()->getRegistry($r);
+			));
+			$result->add($r['RedisModelMappingListeners']);
+			$r['RedisModelMappingListener']	= $result;
+			return $result;
 		};
 
 		$r['OrderedSet'] = function($r){

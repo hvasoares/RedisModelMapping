@@ -6,11 +6,9 @@ class ListenerChain implements ExtendedRepositoryListener{
 	public function __construct(){
 		$this->allListener = array();
 	}
-
 	public function add($listener){
 		$this->allListener []= $listener;
 	}	
-
 	public function beforeFind($id){
 		foreach($this->allListener as $l)
 			$l->beforeFind($id);
