@@ -6,7 +6,7 @@
 	"hvasoares/commons": "1.*"	,
 	"hvasoares/validations": "1.0.0",
 	"hvasoares/array-redis-persistence":"1.0.4",
-	"hvasoares/phplombok":"1.1.2",
+	"hvasoares/phplombok":"1.1.3",
         "doctrine/common": "2.3.0",
         "doctrine/annotations": "1.1.2",
         "symfony/validator": ">=2.3.0"
