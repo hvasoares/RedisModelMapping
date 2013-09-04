@@ -2,12 +2,13 @@
 namespace hvasoares\RedisModelMapping;
 use ReflectionObject, ReflectionProperty;
 use \Doctrine\Common\Annotations as a;
+require_once __DIR__."/AnnotationDriver.php";
 class AnnotationDriverDoctrine implements AnnotationDriver{
-	public function __construct(){
+	public function __construct($registry){
 		$this->reader = new a\FileCacheReader(
 			new a\AnnotationReader(),
-			'/tmp/',
-			$debug = true
+			$registry['redisModelMapping_cacheDir'],
+			$registry['redisModelMapping_debug']
 		);
 
 		a\AnnotationRegistry::registerLoader(function($class){

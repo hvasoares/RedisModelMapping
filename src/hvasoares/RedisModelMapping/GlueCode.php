@@ -1,6 +1,7 @@
 <?php
 namespace hvasoares\RedisModelMapping;
 use hvasoares\commons\Registry;
+use hvasoares\commons\JsonPersitentArray;
 use hvasoares\arrayredispersistence;
 class GlueCode{
 	public function getRegistry($top=null){
@@ -8,8 +9,17 @@ class GlueCode{
 		$gcrepo = new arrayredispersistence\GlueCode();
 		$r = new Registry($gcrepo->getRegistry($top));
 
-		$r['RedisModelMappingListeners'] = new DomainListener($r);
 
+		$seed=$top['redisModelMapping_debug'] ? rand()+time() : "";
+		$config = new JsonPersitentArray(
+			$top['redisModelMapping_cacheDir']
+			."/rmpCache$seed.lock"
+		);
+
+		$r['phplombok_cachedir'] = $top['redisModelMapping_cacheDir'];
+		$r['phplombok_debug'] = $top['phplombok_debug'];
+
+		$r['RedisModelMappingListeners'] = new DomainListener($r);
 
 		$r['listenerChain'] = function($r){
 			return new ListenerChain();
@@ -17,8 +27,9 @@ class GlueCode{
 
 		$r['RedisModelMappingListener'] = function ($r){
 			$result= new ListenerChain();
+			$registry = new \hvasoares\phplombok\GlueCode();
 			$result->add(new PHPLombokListener(
-				new hvasoares\phplombok\GlueCode()->getRegistry($r);
+				$registry->getRegistry($r)
 			));
 			$result->add($r['RedisModelMappingListeners']);
 			$r['RedisModelMappingListener']	= $result;
