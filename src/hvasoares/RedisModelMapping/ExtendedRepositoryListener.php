@@ -6,5 +6,6 @@ interface ExtendedRepositoryListener{
 	public function beforeSave($model);
 	public function afterSave($model);
 	public function deleteListener($model);
+	public function afterCreate($model);
 }
 ?>

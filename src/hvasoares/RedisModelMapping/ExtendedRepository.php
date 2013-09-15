@@ -25,7 +25,9 @@ class ExtendedRepository{
 		$this->listener->afterSave($model);
 	}
 	public function createNewModel(){
-		return $this->rawRepoStrategy->createNewModel();
+		return $this->listener->afterCreate(
+			$this->rawRepoStrategy->createNewModel()
+		);
 	}
 
 	public function delete($model){

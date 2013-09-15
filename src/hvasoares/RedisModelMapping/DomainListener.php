@@ -25,6 +25,10 @@ class DomainListener implements ExtendedRepositoryListener{
 	public function afterSave($model){
 		return $this->genericMethod('afterSave',$model);
 	}
+	public function afterCreate($model){
+		return $this->genericMethod('afterCreate',$model);
+	}
+
 	public function deleteListener($model){
 		return $this->genericMethod('deleteListener',$model);
 	}

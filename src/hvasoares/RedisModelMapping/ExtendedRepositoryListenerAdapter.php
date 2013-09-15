@@ -20,5 +20,9 @@ abstract class ExtendedRepositoryListenerAdapter{
 	public function deleteListener($model){
 		
 	}
+
+	public function afterCreate($model){
+		return $model;
+	}
 }
 ?>
