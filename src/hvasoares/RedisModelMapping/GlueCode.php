@@ -1,7 +1,7 @@
 <?php
 namespace hvasoares\RedisModelMapping;
 use hvasoares\commons\Registry;
-use hvasoares\commons\JsonPersitentArray;
+use hvasoares\commons\JsonPersistentArray;
 use hvasoares\arrayredispersistence;
 class GlueCode{
 	public function getRegistry($top=null){
@@ -11,7 +11,7 @@ class GlueCode{
 
 
 		$seed=$top['redisModelMapping_debug'] ? rand()+time() : "";
-		$config = new JsonPersitentArray(
+		$config = new JsonPersistentArray(
 			$top['redisModelMapping_cacheDir']
 			."/rmpCache$seed.lock"
 		);
@@ -96,7 +96,7 @@ class GlueCode{
 		};
 
 
-		$r['annotationDriver'] = new AnnotationDriverDoctrine();
+		$r['annotationDriver'] = new AnnotationDriverDoctrine($r);
 		$r['repositoryCreator'] = new AutomatedRepositoryCreator($r);
 		$r['annotatedRepositoryBuilder'] = new AnnotatedRepositoryBuilder($r);
 		$r['annotatedPropertyConsulter'] = new AnnotatedPropertyConsulter();

@@ -7,17 +7,24 @@ class PHPLombokListener extends
 		$this->r =$lombokR;
 	}
 	public function afterSave($model){
-		return $this->r['childClassGenerator']
+		$r= $this->r['childClassGenerator']
 			->generate($model);
+		return $r;
 	}
 
 	public function beforeSave($model){
-		return $model->getAnnotatedObject();	
+		if(method_exists($model,'getAnnotatedObject'))
+			return $model->getAnnotatedObject();	
+		return $model;
 	}
 
 	public function afterFind($model){
 		return $this->r['childClassGenerator']
 			->generate($model);
+	}
+
+	public function afterCreate($model){
+		return $this->afterSave($model);
 	}
 }
 ?>
