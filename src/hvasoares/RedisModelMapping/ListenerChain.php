@@ -31,15 +31,12 @@ class ListenerChain implements ExtendedRepositoryListener{
 	}
 	private function modelTransLoop($model,$method){
 		$last = $model;
-		echo "<div>inicio chain</div>";
 		foreach(array_reverse($this->allListener) as $l){
-			echo "<div>". (get_class($l)) ."</div>";
 			$last = call_user_func(
 				array($l,$method),
 				$last
 			);
 		}
-		echo "<div>fim chain</div>";
 		return $last;
 	}
 }
