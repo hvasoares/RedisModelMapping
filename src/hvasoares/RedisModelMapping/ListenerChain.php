@@ -22,18 +22,24 @@ class ListenerChain implements ExtendedRepositoryListener{
 	public function afterSave($m){
 		return $this->modelTransLoop($m,'afterSave');
 	}
+	public function afterCreate($m){
+		return $this->modelTransLoop($m,'afterCreate');
+	}
 	public function deleteListener($model){
 		foreach($this->allListener as $l)
 			$l->deleteListener($model);
 	}
 	private function modelTransLoop($model,$method){
 		$last = $model;
-		foreach($this->allListener as $l){
+		echo "<div>inicio chain</div>";
+		foreach(array_reverse($this->allListener) as $l){
+			echo "<div>". (get_class($l)) ."</div>";
 			$last = call_user_func(
 				array($l,$method),
 				$last
 			);
 		}
+		echo "<div>fim chain</div>";
 		return $last;
 	}
 }
